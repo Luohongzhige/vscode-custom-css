@@ -16,13 +16,14 @@ function activate(context) {
 	}
 
 	const base = path.join(appDir, "vs", "code");
-	let htmlFile = path.join(base, "electron-browser", "workbench", "workbench.html");
+	let workbenchDir = vscode.env.appName.includes('Insiders') ? 'electron-browser' : 'electron-sandbox';
+	let htmlFile = path.join(base, workbenchDir, "workbench", "workbench.html");
 	// support Cursor IDE
 	if (!fs.existsSync(htmlFile)) {
-		htmlFile = path.join(base, "electron-browser", "workbench", "workbench-apc-extension.html");
+		htmlFile = path.join(base, workbenchDir, "workbench", "workbench-apc-extension.html");
 	}
 	if (!fs.existsSync(htmlFile)) {
-		htmlFile = path.join(base, "electron-browser", "workbench", "workbench.esm.html");
+		htmlFile = path.join(base, workbenchDir, "workbench", "workbench.esm.html");
 	}
 	if (!fs.existsSync(htmlFile)) {
 		vscode.window.showInformationMessage(msg.unableToLocateVsCodeInstallationPath);
